@@ -65,6 +65,7 @@
         }
       });
       document.addEventListener("DOMContentLoaded", () => {
+
         let initialHeight = window.innerHeight;
         let addressBarHeightDiminish = 0;
         document.querySelector(".contarrow").addEventListener("click", () => {
@@ -76,6 +77,23 @@
           const currentHeight = window.innerHeight;
           addressBarHeightDiminish = initialHeight - currentHeight;
         };
+        const removeSkeletonClasses = () => {
+        const skeletonElements = document.querySelectorAll('.skeleton');
+        skeletonElements.forEach(element => {
+          element.classList.remove('skeleton');
+        });
+      };
+      const showVisibleContent = () => {
+        const visibleElements = document.querySelectorAll('.visible');
+        visibleElements.forEach(element => {
+          element.classList.remove('visible'); // Ensure the element is displayed
+        });
+        const circle2 = document.querySelector('.circle2');
+  if (circle2) {
+    circle2.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Example color
+   
+  }
+      };
 
         // const adjustCirclePosition = () => {
         //   calculateAddressBarHeightDiminish();
@@ -165,7 +183,8 @@
         document
           .querySelector(".upicon")
           .addEventListener("click", toggleSideMenu);
-
+          removeSkeletonClasses();
+          showVisibleContent();
         adjustCirclePosition();
         window.addEventListener("resize", adjustCirclePosition);
       });
@@ -174,10 +193,10 @@
   <body>
     <main>
       <header>
-        <div class="logo">
+        <div class="logo skeleton">
           <a href="#">Kajal Makeover</a>
         </div>
-        <nav class="menu">
+        <nav class="menu skeleton">
           <ul>
             <li><a href="#">Services</a></li>
             <li><a href="#">About</a></li>
@@ -186,7 +205,7 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </nav>
-        <nav class="socials">
+        <nav class="socials skeleton">
           <a href="#"><i class="bx bxl-facebook"></i></a>
           <a href="#"><i class="bx bxl-instagram"></i></a>
           <a href="#"><i class="bx bxl-whatsapp"></i></a>
@@ -210,7 +229,7 @@
         </nav>
       </aside>
       <section class="home">
-        <section class="home-content">
+        <section class="home-content skeleton">
           <h1>Transforming Beauty</h1>
           <h3>One Face At a Time!</h3>
           <p>
@@ -222,14 +241,14 @@
         </section>
         <div class="herosec">
           <div class="circle"></div>
-          <div class="circle2"></div>
-          <img class="imagi" src="images/Qp.png" alt="" />
+          <div class="circle2 skeleton"></div>
+          <img class="imagi visible" src="images/Qp.png" alt="" />
         </div>
         <div class="contact-wrapper">
           <div class="contarrow">
             <i class="bx bx-left-arrow arro"></i>
-          </div>
-          <div class="contactsu">CONTACT US</div>
+          </div cass="visible">
+          <div class="contactsu visible">CONTACT US</div>
         </div>
       </section>
       <!-- <section class="content" id="content">
