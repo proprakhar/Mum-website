@@ -19,6 +19,157 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      window.addEventListener("scroll", () => {
+        const skillsSection = document.getElementById("skills");
+        const iframe = document.getElementById("skills-iframe");
+        const skillsTop = skillsSection.getBoundingClientRect().top;
+
+        if (skillsTop <= 0) {
+          // Allow the iframe to scroll
+          iframe.contentWindow.document.body.style.overflow = "auto";
+        } else {
+          // Prevent the iframe from scrolling
+          iframe.contentWindow.document.body.style.overflow = "hidden";
+        }
+      });
+      $(document).ready(function () {
+        // Check if the browser is one of the offending mobile browsers
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+          // Initial setup
+          var initialViewportWidth = $(window).width();
+          var initialViewportHeight = $(window).height();
+
+          // Set relevant heights to the current viewport height
+          updateHeights(initialViewportHeight);
+
+          // Resize event handling
+          $(window).resize(function () {
+            var currentViewportWidth = $(window).width();
+            var currentViewportHeight = $(window).height();
+
+            // Only update heights if the horizontal dimension changes
+            if (currentViewportWidth !== initialViewportWidth) {
+              updateHeights(currentViewportHeight);
+              initialViewportWidth = currentViewportWidth; // Update stored width
+            }
+          });
+        }
+
+        function updateHeights(viewportHeight) {
+          // Update the relevant height values based on the viewport height
+          $(".element-to-update").css("height", viewportHeight + "px");
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        let initialHeight = window.innerHeight;
+        let addressBarHeightDiminish = 0;
+        document.querySelector(".contarrow").addEventListener("click", () => {
+          const contactWrapper = document.querySelector(".contact-wrapper");
+          contactWrapper.classList.toggle("active");
+        });
+
+        const calculateAddressBarHeightDiminish = () => {
+          const currentHeight = window.innerHeight;
+          addressBarHeightDiminish = initialHeight - currentHeight;
+        };
+
+        // const adjustCirclePosition = () => {
+        //   calculateAddressBarHeightDiminish();
+        //   const screenWidth = window.innerWidth;
+
+        //   const circle2 = document.querySelector(".circle2");
+        //   const circle = document.querySelector(".circle");
+        //   const imagi = document.querySelector(".imagi");
+
+        //   if (!circle2 || !circle || !imagi) {
+        //     console.error(
+        //       "One of the elements (circle, circle2, imagi) is not found"
+        //     );
+        //     return;
+        //   }
+
+        //   if (screenWidth > 1385) {
+        //     const circle2Width = circle2.offsetWidth;
+        //     const circle2CenterX =
+        //       circle2.getBoundingClientRect().left + circle2Width / 2;
+
+        //     // Position circle2 vertically centered
+        //     circle2.style.top = `calc(50% - ${circle2Width / 2}px)`;
+
+        //     // Calculate the bottom position of circle2
+        //     const circle2Bottom =
+        //       circle2.getBoundingClientRect().bottom + addressBarHeightDiminish;
+
+        //     // Position circle so that its bottom aligns with the bottom of circle2
+        //     const circWidth = circle.offsetWidth;
+        //     const circHeight = circle.offsetHeight;
+        //     circle.style.top = `${circle2Bottom - circHeight / 2}px`;
+        //     circle.style.left = `calc(${circle2CenterX}px - ${
+        //       circWidth / 2
+        //     }px)`;
+
+        //     // Position imagi at the same position
+        //     imagi.style.top = `${circle2Bottom - circHeight}px`;
+        //     imagi.style.left = `calc(${circle2CenterX}px - ${
+        //       circWidth / 2.7
+        //     }px)`;
+        //   } else {
+        //     circle2.style.top = "";
+        //     circle2.style.left = "";
+        //     circle.style.bottom = "";
+        //     circle.style.top = "";
+        //     circle.style.left = "";
+        //     imagi.style.top = "";
+        //     imagi.style.left = "";
+        //     imagi.style.width = "";
+        //     imagi.style.height = "";
+        //   }
+
+        //   const circWidth = circle.offsetWidth;
+        //   const circle2Width = circle2.offsetWidth;
+        //   const circHeight = circle.offsetHeight;
+        //   const circle2Bottom =
+        //     circle2.getBoundingClientRect().bottom + addressBarHeightDiminish;
+
+        //   circle.style.top = `calc(50% - ${
+        //     circle2Width / 2 - circHeight / 2
+        //   }px)`;
+
+        //   imagi.style.top = `calc(50% - ${circle2Width / 2}px)`;
+        // };
+
+        const toggleSideMenu = () => {
+          const sideMenu = document.querySelector(".side-menu");
+          if (sideMenu.classList.contains("show")) {
+            sideMenu.classList.remove("show");
+            sideMenu.classList.add("hide");
+            setTimeout(() => {
+              sideMenu.style.display = "none"; // Hide after animation
+            }, 300);
+          } else {
+            sideMenu.classList.remove("hide");
+            sideMenu.style.display = "flex"; // Show before animation
+            setTimeout(() => {
+              sideMenu.classList.add("show");
+            }, 0);
+          }
+        };
+
+        document
+          .querySelector(".hamburger-menu")
+          .addEventListener("click", toggleSideMenu);
+        document
+          .querySelector(".upicon")
+          .addEventListener("click", toggleSideMenu);
+
+        adjustCirclePosition();
+        window.addEventListener("resize", adjustCirclePosition);
+      });
+    </script>
   </head>
   <body>
     <main>
@@ -26,8 +177,7 @@
         <div class="logo">
           <a href="#">Kajal Makeover</a>
         </div>
-
-        <nav>
+        <nav class="menu">
           <ul>
             <li><a href="#">Services</a></li>
             <li><a href="#">About</a></li>
@@ -41,7 +191,24 @@
           <a href="#"><i class="bx bxl-instagram"></i></a>
           <a href="#"><i class="bx bxl-whatsapp"></i></a>
         </nav>
+        <div class="hamburger-menu">
+          <i class="bx bx-menu"></i>
+        </div>
       </header>
+      <aside class="side-menu">
+        <nav class="side">
+          <ul>
+            <li>
+              <a class="upicon" href="#"><i class="bx bx-chevron-up"></i></a>
+            </li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Skills</a></li>
+            <li><a href="#">Work</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </aside>
       <section class="home">
         <section class="home-content">
           <h1>Transforming Beauty</h1>
@@ -53,12 +220,30 @@
           </p>
           <a href="#" class="btn">Explore</a>
         </section>
-        <div class="home-image">
-          <div class="circle"><img src="../imff.png" alt="" /></div>
+        <div class="herosec">
+          <div class="circle"></div>
+          <div class="circle2"></div>
+          <img class="imagi" src="../Qp.png" alt="" />
         </div>
-        <div class="cont"><div class="circle2">.</div></div>
+        <div class="contact-wrapper">
+          <div class="contarrow">
+            <i class="bx bx-left-arrow arro"></i>
+          </div>
+          <div class="contactsu">CONTACT US</div>
+        </div>
       </section>
-      <section class="page2"></section>
+      <section class="content" id="content">
+        <iframe class="features" src="features.html"></iframe>
+      </section>
+      <section class="content" id="content">
+        <iframe
+          class="features"
+          src="../Swiper-Slider-3D-Coverflow/index.html"
+        ></iframe>
+      </section>
+      <section class="content" id="skills">
+        <iframe class="features" src="skills.html" id="skills-iframe"></iframe>
+      </section>
     </main>
   </body>
 </html>

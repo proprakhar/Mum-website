@@ -4,6 +4,9 @@
   transition: 0.3s;
   font-family: "Montserrat", sans-serif;
 }
+html {
+  min-height: 100vh;
+}
 body {
   width: 100vw;
   height: 100vh;
@@ -11,38 +14,43 @@ body {
   overflow: hidden;
 }
 h5 {
+  font-size: min(clamp(8px, 1.4vh, 200px), clamp(8px, 1vw, 200px));
   margin-top: 80px;
-  margin-left: 120px;
+  padding: 0px 8%;
   color: #ff3366;
   letter-spacing: 1.5px;
 }
 h1 {
-  font-size: 60px;
+  font-size: min(clamp(25px, 7vh, 400px), clamp(25px, 5.7vw, 400px));
   color: #3c3e41;
-  margin-left: 115px;
+  padding: 10px 8%;
   margin-top: 15px;
 }
 .container {
-  width: 1200px;
+  width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding-top: 40px;
+  padding-left: clamp(25px, 2vh, 100px);
+  padding-right: clamp(25px, 2vh, 100px);
 }
 .row {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   width: 100%;
 }
 .box {
-  height: 200px;
-  width: 200px;
+  height: min(clamp(100px, 22vh, 400px), clamp(100px, 16vw, 400px));
+  width: min(clamp(100px, 22vh, 400px), clamp(100px, 16vw, 400px));
   border-radius: 14px;
   border: 2px solid #3c3e41;
-  padding: 35px;
+  padding: min(clamp(10px, 2vh, 400px), clamp(10px, 1.6vw, 400px));
   overflow: hidden;
+  margin-bottom: min(clamp(10px, 2vh, 400px), clamp(10px, 1.6vw, 400px));
   background: linear-gradient(145deg, #e6e6e6, #ffffff);
   box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
   cursor: pointer;
@@ -50,25 +58,40 @@ h1 {
 .box:hover {
   background: linear-gradient(145deg, #bb0738, #ff3366);
   box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
-  padding-top: 30px;
 }
 .box:hover h2 {
   color: white;
+  transform: translateY(
+    min(clamp(-10px, -2vh, -400px), clamp(-10px, -1.6vw, -400px))
+  );
 }
 .box:hover p {
   color: white;
+  transform: translateY(
+    min(clamp(-10px, -2vh, -400px), clamp(-10px, -1.6vw, -400px))
+  );
 }
-.row:first-child {
+.box:hover img {
+  transform: translateY(
+    min(clamp(-10px, -2vh, -400px), clamp(-10px, -1.6vw, -400px))
+  );
+}
+.row {
+  padding-top: 30px;
   padding-bottom: 30px;
+}
+p {
+  font-size: min(clamp(8px, 1.3vh, 150px), clamp(8px, 0.95vw, 150px));
 }
 img {
   display: flex;
   justify-content: center;
   margin: auto;
-  height: 50px;
-  width: 50px;
+  height: min(clamp(10px, 3vh, 200px), clamp(10px, 2vw, 200px));
+  width: min(clamp(10px, 3vh, 200px), clamp(10px, 2vw, 200px));
 }
 h2 {
+  font-size: min(clamp(12px, 2.2vh, 300px), clamp(12px, 1.6vw, 300px));
   left: 0;
   right: 0;
   margin: auto;
