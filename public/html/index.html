@@ -34,155 +34,75 @@
           iframe.contentWindow.document.body.style.overflow = "hidden";
         }
       });
-      $(document).ready(function () {
-        // Check if the browser is one of the offending mobile browsers
-        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-        if (isMobile) {
-          // Initial setup
-          var initialViewportWidth = $(window).width();
-          var initialViewportHeight = $(window).height();
-
-          // Set relevant heights to the current viewport height
-          updateHeights(initialViewportHeight);
-
-          // Resize event handling
-          $(window).resize(function () {
-            var currentViewportWidth = $(window).width();
-            var currentViewportHeight = $(window).height();
-
-            // Only update heights if the horizontal dimension changes
-            if (currentViewportWidth !== initialViewportWidth) {
-              updateHeights(currentViewportHeight);
-              initialViewportWidth = currentViewportWidth; // Update stored width
-            }
-          });
-        }
-
-        function updateHeights(viewportHeight) {
-          // Update the relevant height values based on the viewport height
-          $(".element-to-update").css("height", viewportHeight + "px");
-        }
-      });
+     
       document.addEventListener("DOMContentLoaded", () => {
+    const largeImage = document.querySelector('img.large-image'); // Adjust the selector as needed
 
-        let initialHeight = window.innerHeight;
-        let addressBarHeightDiminish = 0;
-        document.querySelector(".contarrow").addEventListener("click", () => {
-          const contactWrapper = document.querySelector(".contact-wrapper");
-          contactWrapper.classList.toggle("active");
-        });
+    // Check if the image is already loaded
+    if (largeImage) {
+        if (largeImage.complete) {
+            onImageLoaded();
+        } else {
+            largeImage.addEventListener('load', onImageLoaded);
+            largeImage.addEventListener('error', () => {
+                console.error('Image failed to load');
+                // Handle the error if needed
+            });
+        }
+    } else {
+        console.error('Image with class "large-image" not found');
+    }
 
-        const calculateAddressBarHeightDiminish = () => {
-          const currentHeight = window.innerHeight;
-          addressBarHeightDiminish = initialHeight - currentHeight;
-        };
+    function onImageLoaded() {
+        console.log('Image loaded successfully'); // Debugging message
+
         const removeSkeletonClasses = () => {
-        const skeletonElements = document.querySelectorAll('.skeleton');
-        skeletonElements.forEach(element => {
-          element.classList.remove('skeleton');
-        });
-      };
-      const showVisibleContent = () => {
-        const visibleElements = document.querySelectorAll('.visible');
-        visibleElements.forEach(element => {
-          element.classList.remove('visible'); // Ensure the element is displayed
-        });
-        const circle2 = document.querySelector('.circle2');
-  if (circle2) {
-    circle2.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Example color
-   
-  }
-      };
+            const skeletonElements = document.querySelectorAll('.skeleton');
+            skeletonElements.forEach(element => {
+                element.classList.remove('skeleton');
+            });
+        };
 
-        // const adjustCirclePosition = () => {
-        //   calculateAddressBarHeightDiminish();
-        //   const screenWidth = window.innerWidth;
+        const showVisibleContent = () => {
+            const visibleElements = document.querySelectorAll('.visible');
+            visibleElements.forEach(element => {
+                element.classList.remove('visible'); // Ensure the element is displayed
+            });
 
-        //   const circle2 = document.querySelector(".circle2");
-        //   const circle = document.querySelector(".circle");
-        //   const imagi = document.querySelector(".imagi");
+            const circle2 = document.querySelector('.circle2');
+            if (circle2) {
+                circle2.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Example color
+            }
+        };
 
-        //   if (!circle2 || !circle || !imagi) {
-        //     console.error(
-        //       "One of the elements (circle, circle2, imagi) is not found"
-        //     );
-        //     return;
-        //   }
+        removeSkeletonClasses();
+        showVisibleContent();
+    }
 
-        //   if (screenWidth > 1385) {
-        //     const circle2Width = circle2.offsetWidth;
-        //     const circle2CenterX =
-        //       circle2.getBoundingClientRect().left + circle2Width / 2;
-
-        //     // Position circle2 vertically centered
-        //     circle2.style.top = `calc(50% - ${circle2Width / 2}px)`;
-
-        //     // Calculate the bottom position of circle2
-        //     const circle2Bottom =
-        //       circle2.getBoundingClientRect().bottom + addressBarHeightDiminish;
-
-        //     // Position circle so that its bottom aligns with the bottom of circle2
-        //     const circWidth = circle.offsetWidth;
-        //     const circHeight = circle.offsetHeight;
-        //     circle.style.top = `${circle2Bottom - circHeight / 2}px`;
-        //     circle.style.left = `calc(${circle2CenterX}px - ${
-        //       circWidth / 2
-        //     }px)`;
-
-        //     // Position imagi at the same position
-        //     imagi.style.top = `${circle2Bottom - circHeight}px`;
-        //     imagi.style.left = `calc(${circle2CenterX}px - ${
-        //       circWidth / 2.7
-        //     }px)`;
-        //   } else {
-        //     circle2.style.top = "";
-        //     circle2.style.left = "";
-        //     circle.style.bottom = "";
-        //     circle.style.top = "";
-        //     circle.style.left = "";
-        //     imagi.style.top = "";
-        //     imagi.style.left = "";
-        //     imagi.style.width = "";
-        //     imagi.style.height = "";
-        //   }
-
-        //   const circWidth = circle.offsetWidth;
-        //   const circle2Width = circle2.offsetWidth;
-        //   const circHeight = circle.offsetHeight;
-        //   const circle2Bottom =
-        //     circle2.getBoundingClientRect().bottom + addressBarHeightDiminish;
-
-        //   circle.style.top = `calc(50% - ${
-        //     circle2Width / 2 - circHeight / 2
-        //   }px)`;
-
-        //   imagi.style.top = `calc(50% - ${circle2Width / 2}px)`;
-        // };
-
-        const toggleSideMenu = () => {
-          const sideMenu = document.querySelector(".side-menu");
-          if (sideMenu.classList.contains("show")) {
+    const toggleSideMenu = () => {
+        const sideMenu = document.querySelector(".side-menu");
+        if (sideMenu.classList.contains("show")) {
             sideMenu.classList.remove("show");
             sideMenu.classList.add("hide");
             setTimeout(() => {
-              sideMenu.style.display = "none"; // Hide after animation
+                sideMenu.style.display = "none"; // Hide after animation
             }, 300);
-          } else {
+        } else {
             sideMenu.classList.remove("hide");
             sideMenu.style.display = "flex"; // Show before animation
             setTimeout(() => {
-              sideMenu.classList.add("show");
+                sideMenu.classList.add("show");
             }, 0);
-          }
-        };
+        }
+    };
 
-        document
-          .querySelector(".hamburger-menu")
-          .addEventListener("click", toggleSideMenu);
-        document
-          .querySelector(".upicon")
-          .addEventListener("click", toggleSideMenu);
+    document
+        .querySelector(".hamburger-menu")
+        .addEventListener("click", toggleSideMenu);
+    document
+        .querySelector(".upicon")
+        .addEventListener("click", toggleSideMenu);
+
           removeSkeletonClasses();
           showVisibleContent();
         adjustCirclePosition();
@@ -242,7 +162,7 @@
         <div class="herosec">
           <div class="circle"></div>
           <div class="circle2 skeleton"></div>
-          <img class="imagi visible" src="images/Qp.png" alt="" />
+          <img class="imagi visible large-image" src="images/Qp.png" alt="" />
         </div>
         <div class="contact-wrapper">
           <div class="contarrow">
