@@ -24,68 +24,47 @@
       window.addEventListener("scroll", () => {
         const skillsSection = document.getElementById("skills");
         const iframe = document.getElementById("skills-iframe");
-        const skillsTop = skillsSection.getBoundingClientRect().top;
-
-        if (skillsTop <= 0) {
-          // Allow the iframe to scroll
-          iframe.contentWindow.document.body.style.overflow = "auto";
-        } else {
-          // Prevent the iframe from scrolling
-          iframe.contentWindow.document.body.style.overflow = "hidden";
+        if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
+          const skillsTop = skillsSection.getBoundingClientRect().top;
+          if (skillsTop <= 0) {
+            // Allow the iframe to scroll
+            iframe.contentWindow.document.body.style.overflow = "auto";
+          } else {
+            // Prevent the iframe from scrolling
+            iframe.contentWindow.document.body.style.overflow = "hidden";
+          }
         }
       });
 
       document.addEventListener("DOMContentLoaded", () => {
         const largeImage = document.querySelector("img.large-image"); // Adjust the selector as needed
 
-        // Check if the image is already loaded
-        if (largeImage) {
-          if (largeImage.complete) {
-            onImageLoaded();
-          } else {
-            largeImage.addEventListener("load", onImageLoaded);
-            largeImage.addEventListener("error", () => {
-              console.error("Image failed to load");
-              // Handle the error if needed
-            });
+        const removeSkeletonClasses = () => {
+          const skeletonElements = document.querySelectorAll(".skeleton");
+          skeletonElements.forEach((element) => {
+            element.classList.remove("skeleton");
+          });
+        };
+
+        const showVisibleContent = () => {
+          const visibleElements = document.querySelectorAll(".visible");
+          visibleElements.forEach((element) => {
+            element.classList.remove("visible"); // Ensure the element is displayed
+          });
+
+          const circle2 = document.querySelector(".circle2");
+          if (circle2) {
+            circle2.style.backgroundColor = "rgba(0, 0, 0, 0)"; // Example color
           }
-        } else {
-          console.error('Image with class "large-image" not found');
-        }
+        };
 
-        function onImageLoaded() {
-          console.log("Image loaded successfully"); // Debugging message
-
-          const removeSkeletonClasses = () => {
-            const skeletonElements = document.querySelectorAll(".skeleton");
-            skeletonElements.forEach((element) => {
-              element.classList.remove("skeleton");
-            });
-          };
-
-          const showVisibleContent = () => {
-            const visibleElements = document.querySelectorAll(".visible");
-            visibleElements.forEach((element) => {
-              element.classList.remove("visible"); // Ensure the element is displayed
-            });
-
-            const circle2 = document.querySelector(".circle2");
-            if (circle2) {
-              circle2.style.backgroundColor = "rgba(0, 0, 0, 0)"; // Example color
-            }
-          };
+        const toggleContactWrapper = () => {
           const contactWrapper = document.querySelector(".contact-wrapper");
-          const contarrow = document.querySelector(".contarrow");
+          contactWrapper.classList.toggle("active");
+        };
 
-          const toggleContactWrapper = () => {
-            contactWrapper.classList.toggle("active");
-          };
-
-          contarrow.addEventListener("click", toggleContactWrapper);
-
-          removeSkeletonClasses();
-          showVisibleContent();
-        }
+        const contarrow = document.querySelector(".contarrow");
+        contarrow.addEventListener("click", toggleContactWrapper);
 
         const toggleSideMenu = () => {
           const sideMenu = document.querySelector(".side-menu");
@@ -111,10 +90,24 @@
           .querySelector(".upicon")
           .addEventListener("click", toggleSideMenu);
 
-        removeSkeletonClasses();
-        showVisibleContent();
-        adjustCirclePosition();
-        window.addEventListener("resize", adjustCirclePosition);
+        if (largeImage) {
+          if (largeImage.complete) {
+            onImageLoaded();
+          } else {
+            largeImage.addEventListener("load", onImageLoaded);
+            largeImage.addEventListener("error", () => {
+              console.error("Image failed to load");
+              // Handle the error if needed
+            });
+          }
+        } else {
+          console.error('Image with class "large-image" not found');
+        }
+
+        function onImageLoaded() {
+          removeSkeletonClasses();
+          showVisibleContent();
+        }
       });
     </script>
   </head>

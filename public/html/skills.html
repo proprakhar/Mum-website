@@ -18,12 +18,17 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="css/skillss.css" />
+    <style>
+      .card {
+        will-change: transform, opacity;
+        transform: translateZ(0);
+      }
+    </style>
   </head>
   <body>
     <div class="binner" id="head">
       <h5>Artisanal Expertise</h5>
     </div>
-    `
     <div class="outerh">
       <div class="innerh">
         <h1>Services</h1>
@@ -36,7 +41,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.52.47\ PM.png');
+              background-image: url('./images/Screenshot 2024-08-06 at 6.52.47 PM.png');
               background-size: cover;
             "
           >
@@ -45,7 +50,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/amanda-dalbjorn-fvInY-Gh7sc-unsplash.jpg');
+              background-image: url('./images/amanda-dalbjorn-fvInY-Gh7sc-unsplash_11zon.jpg');
               background-size: cover;
             "
           >
@@ -54,7 +59,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/atikh-bana-zPFws4toKhg-unsplash.jpg');
+              background-image: url('./images/atikh-bana-zPFws4toKhg-unsplash_11zon.jpg');
               background-size: cover;
             "
           >
@@ -63,7 +68,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.47.09\ PM.png');
+              background-image: url('./images/Screenshot 2024-08-06 at 6.47.09 PM.png');
               background-size: cover;
             "
           >
@@ -72,7 +77,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.50.13\ PM.png');
+              background-image: url('./images/Screenshot 2024-08-06 at 6.50.13 PM.png');
               background-size: cover;
             "
           >
@@ -90,7 +95,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/ivy-aralia-nizar-420dKcPcvAE-unsplash.jpg');
+              background-image: url('./images/ivy-aralia-nizar-420dKcPcvAE-unsplash_11zon.jpg');
               background-size: cover;
             "
           >
@@ -99,7 +104,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/hair-extensions-selection-of-different-colors-picjumbo-com.jpg');
+              background-image: url('./images/hair-extensions-selection-of-different-colors-picjumbo-com_11zon.jpg');
               background-size: cover;
             "
           >
@@ -145,7 +150,7 @@
           return { distance, progress, cardHeight: cardRect.height };
         };
 
-        window.addEventListener("scroll", () => {
+        const onScroll = () => {
           cards.forEach((card) => {
             const { distance, progress, cardHeight } = calculateDistance(card);
             const angle = 67.5 * progress; // Rotation angle
@@ -160,6 +165,17 @@
               card.style.transform = `rotateX(${-angle}deg) `;
             }
           });
+        };
+
+        let isScrolling = false;
+        window.addEventListener("scroll", () => {
+          if (!isScrolling) {
+            isScrolling = true;
+            window.requestAnimationFrame(() => {
+              onScroll();
+              isScrolling = false;
+            });
+          }
         });
       });
     </script>
