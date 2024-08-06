@@ -248,8 +248,8 @@ main {
   .circle2,
   .imagi {
     position: absolute;
-    height: 34dvw;
-    width: 25.7dvw;
+    height: (34 * (3/5)) dvw;
+    width: (25.7 * (3/5)) dvw;
   }
 
   .herosec > div {
@@ -445,7 +445,7 @@ footer {
     height: 332px;
   }
   .imagi {
-    top: 120px;
+    top: 50px;
     height: 46dvw !important;
     width: 34dvw !important;
     margin: 8.3px 0px 0px;
@@ -500,4 +500,39 @@ footer {
 }
 .visible {
   display: none;
+}
+.herosec {
+  margin: auto;
+}
+@media screen and (max-width: 370px) {
+  .imagi {
+    top: 120px;
+    height: 46dvw !important;
+    width: 34dvw !important;
+    margin: 8.3px 0px 0px;
+  }
+}
+@media screen and (max-width: 460px) {
+  .imagi {
+    top: 80px;
+    height: 46dvw !important;
+    width: 34dvw !important;
+    margin: 8.3px 0px 0px;
+  }
+}
+@media screen and (max-width: 505px) {
+  .imagi {
+    top: 60px;
+    height: 46dvw !important;
+    width: 34dvw !important;
+    margin: 8.3px 0px 0px;
+  }
+}
+@media screen and (max-width: 844px) {
+  .imagi {
+    top: 40px;
+    height: 46dvw !important;
+    width: 34dvw !important;
+    margin: 8.3px 0px 0px;
+  }
 }

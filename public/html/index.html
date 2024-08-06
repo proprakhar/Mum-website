@@ -34,77 +34,85 @@
           iframe.contentWindow.document.body.style.overflow = "hidden";
         }
       });
-     
+
       document.addEventListener("DOMContentLoaded", () => {
-    const largeImage = document.querySelector('img.large-image'); // Adjust the selector as needed
+        const largeImage = document.querySelector("img.large-image"); // Adjust the selector as needed
 
-    // Check if the image is already loaded
-    if (largeImage) {
-        if (largeImage.complete) {
+        // Check if the image is already loaded
+        if (largeImage) {
+          if (largeImage.complete) {
             onImageLoaded();
+          } else {
+            largeImage.addEventListener("load", onImageLoaded);
+            largeImage.addEventListener("error", () => {
+              console.error("Image failed to load");
+              // Handle the error if needed
+            });
+          }
         } else {
-            largeImage.addEventListener('load', onImageLoaded);
-            largeImage.addEventListener('error', () => {
-                console.error('Image failed to load');
-                // Handle the error if needed
-            });
+          console.error('Image with class "large-image" not found');
         }
-    } else {
-        console.error('Image with class "large-image" not found');
-    }
 
-    function onImageLoaded() {
-        console.log('Image loaded successfully'); // Debugging message
+        function onImageLoaded() {
+          console.log("Image loaded successfully"); // Debugging message
 
-        const removeSkeletonClasses = () => {
-            const skeletonElements = document.querySelectorAll('.skeleton');
-            skeletonElements.forEach(element => {
-                element.classList.remove('skeleton');
+          const removeSkeletonClasses = () => {
+            const skeletonElements = document.querySelectorAll(".skeleton");
+            skeletonElements.forEach((element) => {
+              element.classList.remove("skeleton");
             });
-        };
+          };
 
-        const showVisibleContent = () => {
-            const visibleElements = document.querySelectorAll('.visible');
-            visibleElements.forEach(element => {
-                element.classList.remove('visible'); // Ensure the element is displayed
+          const showVisibleContent = () => {
+            const visibleElements = document.querySelectorAll(".visible");
+            visibleElements.forEach((element) => {
+              element.classList.remove("visible"); // Ensure the element is displayed
             });
 
-            const circle2 = document.querySelector('.circle2');
+            const circle2 = document.querySelector(".circle2");
             if (circle2) {
-                circle2.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Example color
+              circle2.style.backgroundColor = "rgba(0, 0, 0, 0)"; // Example color
             }
-        };
+          };
+          const contactWrapper = document.querySelector(".contact-wrapper");
+          const contarrow = document.querySelector(".contarrow");
 
-        removeSkeletonClasses();
-        showVisibleContent();
-    }
+          const toggleContactWrapper = () => {
+            contactWrapper.classList.toggle("active");
+          };
 
-    const toggleSideMenu = () => {
-        const sideMenu = document.querySelector(".side-menu");
-        if (sideMenu.classList.contains("show")) {
-            sideMenu.classList.remove("show");
-            sideMenu.classList.add("hide");
-            setTimeout(() => {
-                sideMenu.style.display = "none"; // Hide after animation
-            }, 300);
-        } else {
-            sideMenu.classList.remove("hide");
-            sideMenu.style.display = "flex"; // Show before animation
-            setTimeout(() => {
-                sideMenu.classList.add("show");
-            }, 0);
-        }
-    };
-
-    document
-        .querySelector(".hamburger-menu")
-        .addEventListener("click", toggleSideMenu);
-    document
-        .querySelector(".upicon")
-        .addEventListener("click", toggleSideMenu);
+          contarrow.addEventListener("click", toggleContactWrapper);
 
           removeSkeletonClasses();
           showVisibleContent();
+        }
+
+        const toggleSideMenu = () => {
+          const sideMenu = document.querySelector(".side-menu");
+          if (sideMenu.classList.contains("show")) {
+            sideMenu.classList.remove("show");
+            sideMenu.classList.add("hide");
+            setTimeout(() => {
+              sideMenu.style.display = "none"; // Hide after animation
+            }, 300);
+          } else {
+            sideMenu.classList.remove("hide");
+            sideMenu.style.display = "flex"; // Show before animation
+            setTimeout(() => {
+              sideMenu.classList.add("show");
+            }, 0);
+          }
+        };
+
+        document
+          .querySelector(".hamburger-menu")
+          .addEventListener("click", toggleSideMenu);
+        document
+          .querySelector(".upicon")
+          .addEventListener("click", toggleSideMenu);
+
+        removeSkeletonClasses();
+        showVisibleContent();
         adjustCirclePosition();
         window.addEventListener("resize", adjustCirclePosition);
       });
@@ -130,8 +138,8 @@
           <a href="#"><i class="bx bxl-instagram"></i></a>
           <a href="#"><i class="bx bxl-whatsapp"></i></a>
         </nav>
-        <div class="hamburger-menu">
-          <i class="bx bx-menu"></i>
+        <div class="hamburger-menu skeleton">
+          <i class="bx bx-menu skeleton"></i>
         </div>
       </header>
       <aside class="side-menu">
@@ -167,22 +175,22 @@
         <div class="contact-wrapper">
           <div class="contarrow">
             <i class="bx bx-left-arrow arro"></i>
-          </div cass="visible">
+          </div>
           <div class="contactsu visible">CONTACT US</div>
         </div>
       </section>
-      <!-- <section class="content" id="content">
+      <section class="content" id="content">
         <iframe class="features" src="features.html"></iframe>
       </section>
       <section class="content" id="content">
         <iframe
           class="features"
-          src="../Swiper-Slider-3D-Coverflow/indexxx.html"
+          src="Swiper-Slider-3D-Coverflow/indexxx.html"
         ></iframe>
       </section>
       <section class="content" id="skills">
         <iframe class="features" src="skills.html" id="skills-iframe"></iframe>
-      </section> -->
+      </section>
     </main>
   </body>
 </html>

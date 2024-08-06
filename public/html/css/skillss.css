@@ -75,7 +75,7 @@ body {
   margin: auto;
   border-radius: 12px;
   border: 2px solid #794dff;
-  background: url("../anime.jpg");
+
   background-size: cover;
   opacity: 0;
   transition: transform 0.05s ease, opacity 0.3s ease;
@@ -178,4 +178,24 @@ footer {
     width: 280px;
     height: 178px;
   }
+}
+.card-text {
+  position: absolute;
+  bottom: 10px; /* Adjust as needed */
+  left: 10px;
+  margin-left: auto;
+  margin-right: auto; /* Ensure the text is not touching the edge */
+  right: 10px; /* Ensure the text is not touching the edge */
+  color: white;
+  font-size: 1.2em;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Semi-transparent background for better readability */
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-sizing: border-box;
 }
