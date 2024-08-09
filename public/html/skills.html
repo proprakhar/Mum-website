@@ -7,6 +7,46 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      href="./images/Screenshot 2024-08-06 at 6.52.47 PM Large.jpeg"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/amanda-dalbjorn-fvInY-Gh7sc-unsplash_11zon Large.jpeg"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/atikh-bana-zPFws4toKhg-unsplash_11zon Large.jpeg"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/Screenshot 2024-08-06 at 6.47.09 PM.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/Screenshot 2024-08-06 at 6.50.13 PM.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/pexels-roberto-colatosti-82254438-8826403 Large.jpeg"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/ivy-aralia-nizar-420dKcPcvAE-unsplash_11zon.jpg"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="./images/hair-extensions-selection-of-different-colors-picjumbo-com_11zon Large.jpeg"
+      as="image"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
@@ -140,12 +180,29 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".card");
+        let imagesLoaded = 0;
+        const totalImages = cards.length;
+
         cards.forEach((card) => {
-          const img = new Image();
-          const backgroundImage = card.style.backgroundImage
+          const imgSrc = card.style.backgroundImage
             .replace(/url\(["']?/, "")
             .replace(/["']?\)$/, "");
-          img.src = backgroundImage;
+          const img = new Image();
+          img.src = imgSrc;
+
+          img.onload = () => {
+            imagesLoaded++;
+            if (imagesLoaded === totalImages) {
+              document.querySelector(".container").style.visibility = "visible";
+            }
+          };
+
+          img.onerror = () => {
+            imagesLoaded++;
+            if (imagesLoaded === totalImages) {
+              document.querySelector(".container").style.visibility = "visible";
+            }
+          };
         });
 
         const calculateDistance = (element) => {
