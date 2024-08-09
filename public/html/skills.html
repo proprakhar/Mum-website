@@ -41,7 +41,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.52.47\ PM.webp');
+              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.52.47\ PM\ Large.jpeg');
               background-size: cover;
             "
           >
@@ -50,7 +50,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/amanda-dalbjorn-fvInY-Gh7sc-unsplash_11zon.webp');
+              background-image: url('./images/amanda-dalbjorn-fvInY-Gh7sc-unsplash_11zon\ Large.jpeg');
               background-size: cover;
             "
           >
@@ -59,7 +59,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/atikh-bana-zPFws4toKhg-unsplash_11zon.webp');
+              background-image: url('./images/atikh-bana-zPFws4toKhg-unsplash_11zon\ Large.jpeg');
               background-size: cover;
             "
           >
@@ -77,7 +77,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/Screenshot\ 2024-08-06\ at\ 6.50.13\ PM.webp');
+              background-image: url('images/Screenshot 2024-08-06 at 6.50.13 PM.webp');
               background-size: cover;
             "
           >
@@ -86,7 +86,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/pexels-roberto-colatosti-82254438-8826403.webp');
+              background-image: url('./images/pexels-roberto-colatosti-82254438-8826403\ Large.jpeg');
               background-size: cover;
             "
           >
@@ -95,7 +95,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/ivy-aralia-nizar-420dKcPcvAE-unsplash_11zon.webp');
+              background-image: url('./images/ivy-aralia-nizar-420dKcPcvAE-unsplash_11zon.jpg');
               background-size: cover;
             "
           >
@@ -104,7 +104,7 @@
           <div
             class="card"
             style="
-              background-image: url('./images/hair-extensions-selection-of-different-colors-picjumbo-com_11zon.webp');
+              background-image: url('./images/hair-extensions-selection-of-different-colors-picjumbo-com_11zon\ Large.jpeg');
               background-size: cover;
             "
           >
@@ -141,44 +141,41 @@
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".card");
 
-        const observerOptions = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 0.1, // Adjust threshold as needed
+        const calculateDistance = (element) => {
+          const cardRect = element.getBoundingClientRect();
+          const cardCenter = cardRect.top + cardRect.height / 2;
+          const viewportCenter = window.innerHeight / 2;
+          const distance = cardCenter - viewportCenter;
+          const progress = Math.abs(distance) / (window.innerHeight / 2);
+          return { distance, progress, cardHeight: cardRect.height };
         };
 
-        const observerCallback = (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const card = entry.target;
-              const cardRect = card.getBoundingClientRect();
-              const cardCenter = cardRect.top + cardRect.height / 2;
-              const viewportCenter = window.innerHeight / 2;
-              const distance = cardCenter - viewportCenter;
-              const progress = Math.abs(distance) / (window.innerHeight / 2);
-              const angle = 67.5 * progress; // Rotation angle
+        const onScroll = () => {
+          cards.forEach((card) => {
+            const { distance, progress, cardHeight } = calculateDistance(card);
+            const angle = 67.5 * progress; // Rotation angle
+            const translationX =
+              (cardHeight * Math.tan((angle * Math.PI) / 180)) / 2;
 
-              if (distance < 0) {
-                card.style.opacity = 1 - progress;
-                card.style.transform = `rotateX(${angle}deg) `;
-              } else {
-                card.style.opacity = 1 - progress;
-                card.style.transform = `rotateX(${-angle}deg) `;
-              }
-
-              // Optionally unobserve after animation if you don't need to reanimate on scroll
-              observer.unobserve(card);
+            if (distance < 0) {
+              card.style.opacity = 1 - progress;
+              card.style.transform = `rotateX(${angle}deg) `;
+            } else {
+              card.style.opacity = 1 - progress;
+              card.style.transform = `rotateX(${-angle}deg) `;
             }
           });
         };
 
-        const observer = new IntersectionObserver(
-          observerCallback,
-          observerOptions
-        );
-
-        cards.forEach((card) => {
-          observer.observe(card);
+        let isScrolling = false;
+        window.addEventListener("scroll", () => {
+          if (!isScrolling) {
+            isScrolling = true;
+            window.requestAnimationFrame(() => {
+              onScroll();
+              isScrolling = false;
+            });
+          }
         });
       });
     </script>
