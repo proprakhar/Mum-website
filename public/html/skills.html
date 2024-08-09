@@ -140,6 +140,13 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".card");
+        cards.forEach((card) => {
+          const img = new Image();
+          const backgroundImage = card.style.backgroundImage
+            .replace(/url\(["']?/, "")
+            .replace(/["']?\)$/, "");
+          img.src = backgroundImage;
+        });
 
         const calculateDistance = (element) => {
           const cardRect = element.getBoundingClientRect();
