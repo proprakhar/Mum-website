@@ -160,7 +160,7 @@
         const onScroll = () => {
           cards.forEach((card) => {
             const { distance, progress, cardHeight } = calculateDistance(card);
-            const angle = 67.5 * progress; // Rotation angle
+            const angle = 67.5 * progress; // Rotation angl
             const translationX =
               (cardHeight * Math.tan((angle * Math.PI) / 180)) / 2;
 
