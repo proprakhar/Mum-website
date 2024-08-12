@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -19,22 +19,20 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      window.addEventListener("scroll", () => {
-        const skillsSection = document.getElementById("skills");
-        const iframe = document.getElementById("skills-iframe");
-        if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
-          const skillsTop = skillsSection.getBoundingClientRect().top;
-          if (skillsTop <= 0) {
-            // Allow the iframe to scroll
-            iframe.contentWindow.document.body.style.overflow = "auto";
-          } else {
-            // Prevent the iframe from scrolling
-            iframe.contentWindow.document.body.style.overflow = "hidden";
-          }
-        }
-      });
+    <script type="module">
+      import { Gradient } from "./Gradient.js";
+
+      // Create your instance
+      const gradient = new Gradient();
+
+      // Call `initGradient` with the selector to your canvas
+      gradient.initGradient("#gradient-canvas");
+      //
 
       document.addEventListener("DOMContentLoaded", () => {
         const largeImage = document.querySelector("img.large-image"); // Adjust the selector as needed
@@ -45,7 +43,18 @@
             element.classList.remove("skeleton");
           });
         };
+     
 
+        const contactTrigger = document.querySelector(".contact-trigger");
+const dropdown = document.querySelector(".drop");
+
+contactTrigger.addEventListener("click", () => {
+  if (dropdown.classList.contains('show')) {
+    dropdown.classList.remove('show');
+  } else {
+    dropdown.classList.add('show');
+  }
+});
         const showVisibleContent = () => {
           const visibleElements = document.querySelectorAll(".visible");
           visibleElements.forEach((element) => {
@@ -64,10 +73,14 @@
         };
 
         const contarrow = document.querySelector(".contarrow");
-        contarrow.addEventListener("click", toggleContactWrapper);
+        contarrow.addEventListener("click", (event) => {
+          event.preventDefault(); // Prevents the page from jumping to the top
+          toggleContactWrapper();
+        });
 
         const toggleSideMenu = () => {
           const sideMenu = document.querySelector(".side-menu");
+          
           if (sideMenu.classList.contains("show")) {
             sideMenu.classList.remove("show");
             sideMenu.classList.add("hide");
@@ -82,6 +95,7 @@
             }, 0);
           }
         };
+        
 
         document
           .querySelector(".hamburger-menu")
@@ -102,8 +116,9 @@
           }
         } else {
           console.error('Image with class "large-image" not found');
-        }
 
+        }
+       
         function onImageLoaded() {
           removeSkeletonClasses();
           showVisibleContent();
@@ -112,6 +127,7 @@
     </script>
   </head>
   <body>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
     <main>
       <header>
         <div class="logo skeleton">
@@ -119,17 +135,19 @@
         </div>
         <nav class="menu skeleton">
           <ul>
-            <li><a href="#">Services</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Skills</a></li>
-            <li><a href="#">Work</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#features">Services</a></li>
+            <li><a href="#Work">
+              Work
+            </a></li>
+            <li><a href="#skills">Skills</a></li>
+            
           </ul>
         </nav>
         <nav class="socials skeleton">
-          <a href="#"><i class="bx bxl-facebook"></i></a>
-          <a href="#"><i class="bx bxl-instagram"></i></a>
-          <a href="#"><i class="bx bxl-whatsapp"></i></a>
+          <a href="https://www.facebook.com/kajal.ji.16?mibextid=LQQJ4d"><i class="bx bxl-facebook"></i></a>
+          <a href="https://www.instagram.com/kajalmakeover155?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="bx bxl-instagram"></i></a>
+          <a href="https://wa.link/kmhea4"><i class="bx bxl-whatsapp"></i></a>
         </nav>
         <div class="hamburger-menu skeleton">
           <i class="bx bx-menu skeleton"></i>
@@ -139,17 +157,25 @@
         <nav class="side">
           <ul>
             <li>
-              <a class="upicon" href="#"><i class="bx bx-chevron-up"></i></a>
+              <a class="upicon"><i class='bx bxs-chevron-right-circle'></i></i></a>
             </li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Skills</a></li>
-            <li><a href="#">Work</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Services</a></li>
+            
+            
+            <li><a href="#Work">Work</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#" class="contact-trigger">Contact</a></li>
+            <li><div class="drop">
+              <a href="https://www.facebook.com/kajal.ji.16?mibextid=LQQJ4d"><i class="bx bxl-facebook" ></i></a>
+              <a href="https://www.instagram.com/kajalmakeover155?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="bx bxl-instagram" ></i></a>
+              <a href="https://wa.link/kmhea4"><i class="bx bxl-whatsapp"></i></a>
+            </div></li>
           </ul>
+       
         </nav>
       </aside>
-      <section class="home">
+      <section class="home" id="about">
         <section class="home-content skeleton">
           <h1>Transforming Beauty</h1>
           <h3>One Face At a Time!</h3>
@@ -158,7 +184,7 @@
             enhance your natural glow and elevate your confidence. Experience
             the art of transformation with our expert team.
           </p>
-          <a href="#" class="btn">Explore</a>
+          <a href="#features" class="btn">Explore</a>
         </section>
         <div class="herosec">
           <div class="circle"></div>
@@ -172,21 +198,25 @@
         <div class="contact-wrapper">
           <div class="contarrow">
             <i class="bx bx-left-arrow arro"></i>
-          </div>
-          <div class="contactsu visible">CONTACT US</div>
+          </div><a href="tel:+12345678901">
+          <div class="contactsu visible" href="">CONTACT US</div></a>
         </div>
       </section>
-      <section class="content" id="content">
+      <section class="content" id="features">
         <iframe class="features" src="features.html"></iframe>
       </section>
-      <section class="content" id="content">
+      <section class="content" id="Work">
         <iframe
           class="features"
           src="Swiper-Slider-3D-Coverflow/indexxx.html"
         ></iframe>
       </section>
       <section class="content" id="skills">
-        <iframe class="features" src="skills.html" id="skills-iframe"></iframe>
+        <iframe
+          class="features"
+          src="services.html"
+          id="skills-iframe"
+        ></iframe>
       </section>
     </main>
   </body>

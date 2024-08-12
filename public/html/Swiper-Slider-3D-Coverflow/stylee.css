@@ -9,7 +9,19 @@
   list-style-type: none;
   text-decoration: none;
 }
+#gradient-canvas {
+  width: 100vw;
+  height: 100vh;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  --gradient-color-1: #c2f0e8;
+  --gradient-color-2: #92d4e6;
+  --gradient-color-3: #d2e6c6;
+  --gradient-color-4: #aac5b8;
+}
 :root {
   --primary: #ec994b;
   --white: #ffffff;
@@ -61,6 +73,7 @@ html {
 body {
   font-size: 1.6rem;
   background: var(--bg);
+  overflow: hidden;
 }
 
 .container {
@@ -69,21 +82,76 @@ body {
   margin: 0 auto;
   min-width: calc(100% - 20rem);
 }
+.containerr {
+  position: relative;
+  display: block;
+  z-index: 500;
+  max-width: 124rem;
 
-.text-center {
-  text-align: left;
+  text-align: center;
+  min-width: calc(100% - 20rem);
+  margin-bottom: 2rem;
+}
+h1 .bubble {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.9); /* Reduced opacity */
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  justify-content: center;
 }
 
+.bubble::before {
+  content: "";
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 220px;
+  height: 300%;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7), transparent);
+  border-radius: 50%;
+
+  animation: wave 8s infinite ease-in-out;
+  transform: translate(-50%, -50%); /* Center the wave animation */
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 .section-heading {
-  letter-spacing: 1.5px;
-  font-size: 40px;
-  padding-left: 8%;
-  margin-top: 15px;
+  font-size: min(clamp(25px, 7vh, 400px), clamp(25px, 5.7vw, 400px));
+  color: #3c3e41;
+  font-family: "Monstserrat", sans-serif;
+
+  font-weight: 800;
+  line-height: 110%;
+  margin-right: auto;
+  margin-left: auto;
+  letter-spacing: 0.15rem;
+  margin-top: 5px;
 }
 .section-subheading {
+  font-family: "Monstserrat", sans-serif;
+  font-size: min(clamp(8px, 1.4vh, 200px), clamp(8px, 1vw, 200px));
+  font-weight: 700;
   letter-spacing: 1.5px;
-  color: #a7c957;
-  padding-left: 8%;
+  margin-right: auto;
+  margin-left: auto;
+  color: #006d77;
+  line-height: 180%;
 }
 
 #tranding {
@@ -112,6 +180,7 @@ body {
   width: 37rem;
   height: 42rem;
   position: relative;
+  z-index: 5;
 }
 
 @media (max-width: 500px) {
@@ -280,4 +349,7 @@ body {
 
 .tranding-slider-control .swiper-pagination .swiper-pagination-bullet-active {
   background: var(--primary);
+}
+.swiper {
+  z-index: 500 !important;
 }

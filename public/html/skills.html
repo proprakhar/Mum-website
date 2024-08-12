@@ -180,30 +180,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".card");
-        let imagesLoaded = 0;
-        const totalImages = cards.length;
-
-        cards.forEach((card) => {
-          const imgSrc = card.style.backgroundImage
-            .replace(/url\(["']?/, "")
-            .replace(/["']?\)$/, "");
-          const img = new Image();
-          img.src = imgSrc;
-
-          img.onload = () => {
-            imagesLoaded++;
-            if (imagesLoaded === totalImages) {
-              document.querySelector(".container").style.visibility = "visible";
-            }
-          };
-
-          img.onerror = () => {
-            imagesLoaded++;
-            if (imagesLoaded === totalImages) {
-              document.querySelector(".container").style.visibility = "visible";
-            }
-          };
-        });
 
         const calculateDistance = (element) => {
           const cardRect = element.getBoundingClientRect();
@@ -230,17 +206,8 @@
             }
           });
         };
-
-        let isScrolling = false;
-        window.addEventListener("scroll", () => {
-          if (!isScrolling) {
-            isScrolling = true;
-            window.requestAnimationFrame(() => {
-              onScroll();
-              isScrolling = false;
-            });
-          }
-        });
+        window.addEventListener("scroll", onScroll);
+        onScroll();
       });
     </script>
   </body>

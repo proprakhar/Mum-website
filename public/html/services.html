@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swiper Example</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="css/service.css" />
+
+    <style>
+      /* Additional styles for smooth transition */
+      .swiper-wrapper {
+        transition: transform 0.3s ease; /* Smooth transition for centering */
+      }
+      .swiper-slide {
+        transition: transform 0.3s ease; /* Smooth transition for slides */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
+    <div class="text-center">
+      <p>Artisional expertise</p>
+      <h1>Services</h1>
+    </div>
+    <div class="container">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <!-- Swiper Slides -->
+          <div class="swiper-slide">
+            <img src="amanda-dalbjorn-fvInY-Gh7sc-unsplash_11zon Large.jpeg" />
+            <p>Subtle Makeover</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="atikh-bana-zPFws4toKhg-unsplash_11zon Large.jpeg" />
+            <p>HD Makeover</p>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="hair-extensions-selection-of-different-colors-picjumbo-com_11zon Large.jpeg"
+            />
+            <p>Hair Extensions</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="ivy-aralia-nizar-420dKcPcvAE-unsplash_11zon.webp" />
+            <p>Airbrush Makeover</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="pexels-roberto-colatosti-82254438-8826403 Large.jpeg" />
+            <p>Permanent makeover</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="Screenshot 2024-08-06 at 6.47.09 PM.webp" />
+            <p>Nail Art</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="Screenshot 2024-08-06 at 6.50.13 PM.webp" />
+            <p>Prosthetic Makeover</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="Screenshot 2024-08-06 at 6.52.47 PM Large.jpeg" />
+            <p>Earlobe Correction</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module">
+      import { Gradient } from "./Gradient.js";
+
+      // Create your instance
+      const gradient = new Gradient();
+
+      // Call `initGradient` with the selector to your canvas
+      gradient.initGradient("#gradient-canvas");
+      document.addEventListener("DOMContentLoaded", () => {
+        let swiper;
+
+        setTimeout(() => {
+          swiper = new Swiper(".swiper", {
+            grabCursor: true,
+            initialSlide: 4,
+
+            centeredSlides: true,
+            spaceBetween: 45,
+            freeMode: false,
+            loop: true,
+            slidesPerView: "auto",
+            slideToClickedSlide: true,
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            autoplay: {
+              delay: 3000,
+              disableOnInteraction: false,
+            },
+          });
+
+          function adjustWrapperSpacing(direction) {
+            const wrapper = document.querySelector(".swiper-wrapper");
+            if (direction === "next") {
+              wrapper.style.marginRight = "80px";
+              wrapper.style.marginLeft = "20px";
+            } else if (direction === "prev") {
+              wrapper.style.marginLeft = "-20px";
+              wrapper.style.marginRight = "0px";
+            }
+          }
+
+          document
+            .querySelector(".swiper-button-next")
+            .addEventListener("click", () => {
+              adjustWrapperSpacing("next");
+            });
+
+          document
+            .querySelector(".swiper-button-prev")
+            .addEventListener("click", () => {
+              adjustWrapperSpacing("prev");
+            });
+
+          swiper.on("slideChange", () => {
+            const direction =
+              swiper.previousIndex < swiper.activeIndex ? "next" : "prev";
+            adjustWrapperSpacing(direction);
+          });
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

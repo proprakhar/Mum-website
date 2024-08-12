@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#gradient-canvas {
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  --gradient-color-1: #c3e4ff;
+  --gradient-color-2: #6ec3f4;
+  --gradient-color-3: #eae2ff;
+  --gradient-color-4: #b9beff;
+}
+.text-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+.text-center p {
+  font-size: min(clamp(8px, 1.4vh, 200px), clamp(8px, 1vw, 200px));
+  color: #023e8a;
+  letter-spacing: 1.5px;
+  font-family: "Monstserrat", sans-serif;
+
+  font-weight: 700;
+  margin-right: auto;
+  margin-left: auto;
+  line-height: 180%;
+}
+.text-center h1 {
+  font-size: min(clamp(25px, 7vh, 400px), clamp(25px, 5.7vw, 400px));
+  color: #3c3e41;
+  font-family: "Monstserrat", sans-serif;
+
+  font-weight: 700;
+  line-height: 110%;
+  margin-right: auto;
+  margin-left: auto;
+  letter-spacing: 0.15rem;
+}
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+}
+.container {
+  width: 80%;
+  margin-top: 4rem;
+
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  display: flex;
+  place-items: center;
+}
+.swiper {
+  padding: 20px 40px 50px;
+  width: 100%;
+  height: 100%; /* Ensure the Swiper container takes full height */
+
+  overflow: hidden; /* Ensure container hides overflow */
+}
+
+.swiper-slide {
+  position: relative;
+  bottom: -100px;
+  width: 260px;
+  height: 300px;
+
+  border-radius: 12px;
+  overflow: hidden;
+  user-select: none;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.swiper-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(98, 98, 98, 0.8);
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.swiper-slide p {
+  position: absolute;
+  left: 150px;
+  bottom: -7px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  width: max-content;
+  font-family: "Montserrat", "Helvetica Neue";
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0;
+  z-index: -1;
+}
+.swiper .swiper-slide-active {
+  will-change: transform;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  bottom: -50px;
+  width: 300px;
+  justify-self: center;
+  align-self: center;
+  height: 400px;
+
+  padding: 20px 20px 24px;
+
+  box-shadow: 0 2px 10px 6px rgba(231, 230, 231, 0.9);
+}
+.swiper-slide.swiper-slide-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(228, 228, 228, 0.7)
+  );
+  mix-blend-mode: multiply;
+  z-index: 1;
+  border-radius: 8px;
+}
+.swiper-slide-active img {
+  border-radius: 8px;
+}
+.swiper-slide-active p {
+  opacity: 1;
+
+  color: rgb(5, 27, 100);
+}
+div .bubble {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.9); /* Reduced opacity */
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble::before {
+  content: "";
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7), transparent);
+  border-radius: 50%;
+  z-index: 1;
+  animation: wave 8s infinite ease-in-out;
+  transform: translate(-50%, -50%); /* Center the wave animation */
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+.swiper-pagination {
+  position: absolute; /* Make sure it's absolutely positioned */
+  bottom: -1rem !important; /* Adjust this value to control vertical position */
+  left: 50%;
+  /* Center horizontally */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+
+  color: white;
+
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.swiper-button-prev {
+  left: -12%;
+}
+
+.swiper-button-next {
+  right: -12%;
+}

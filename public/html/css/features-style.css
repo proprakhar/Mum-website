@@ -4,6 +4,19 @@
   transition: 0.3s;
   font-family: "Montserrat", sans-serif;
 }
+#gradient-canvas {
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  --gradient-color-1: #e6e0ff;
+  --gradient-color-2: #d1b3ff;
+  --gradient-color-3: #ffe0e6;
+  --gradient-color-4: #ffb3c7;
+}
 html {
   min-height: 100vh;
 }
@@ -13,12 +26,17 @@ body {
   background: #f1f1f1;
   overflow: hidden;
 }
+.heads {
+  text-align: center;
+}
 h5 {
   font-size: min(clamp(8px, 1.4vh, 200px), clamp(8px, 1vw, 200px));
   margin-top: 80px;
-  padding: 0px 8%;
+
   color: #ff3366;
   letter-spacing: 1.5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 h1 {
   font-size: min(clamp(25px, 7vh, 400px), clamp(25px, 5.7vw, 400px));
@@ -51,22 +69,33 @@ h1 {
   padding: min(clamp(10px, 2vh, 400px), clamp(10px, 1.6vw, 400px));
   overflow: hidden;
   margin-bottom: min(clamp(10px, 2vh, 400px), clamp(10px, 1.6vw, 400px));
-  background: linear-gradient(145deg, #e6e6e6, #ffffff);
-  box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+  background: linear-gradient(
+    145deg,
+    rgba(230, 230, 230, 0.2),
+    rgba(255, 255, 255, 0.2)
+  );
+
   cursor: pointer;
 }
 .box:hover {
-  background: linear-gradient(145deg, #bb0738, #ff3366);
-  box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+  transform: scale(1.1);
+
+  background: linear-gradient(
+    145deg,
+    rgba(230, 230, 230, 0.5),
+    rgba(255, 255, 255, 0.5)
+  );
+  box-shadow: 8px 8px 16px #656565, -8px -8px 16px #989797;
 }
 .box:hover h2 {
-  color: white;
+  color: rgb(0, 0, 0);
   transform: translateY(
     min(clamp(-10px, -2vh, -400px), clamp(-10px, -1.6vw, -400px))
   );
 }
+
 .box:hover p {
-  color: white;
+  color: rgb(0, 0, 0);
   transform: translateY(
     min(clamp(-10px, -2vh, -400px), clamp(-10px, -1.6vw, -400px))
   );

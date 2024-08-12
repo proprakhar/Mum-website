@@ -1,3 +1,11 @@
+import { Gradient } from "../Gradient.js";
+
+// Create your instance
+const gradient = new Gradient();
+
+// Call `initGradient` with the selector to your canvas
+gradient.initGradient("#gradient-canvas");
+
 var TrandingSlider = new Swiper(".tranding-slider", {
   effect: "coverflow",
   grabCursor: true,

@@ -15,7 +15,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/features-style.css" />
-    <script>
+    <script type="module">
+      import { Gradient } from "./Gradient.js";
+
+      // Create your instance
+      const gradient = new Gradient();
+
+      // Call `initGradient` with the selector to your canvas
+      gradient.initGradient("#gradient-canvas");
       document.addEventListener("DOMContentLoaded", () => {
         const changebox = () => {
           const screenWidth = window.innerWidth;
@@ -42,8 +49,11 @@
     </script>
   </head>
   <body>
-    <h5>Features</h5>
-    <h1>What We Do</h1>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
+    <div class="heads">
+      <h5>Features</h5>
+      <h1>What We Do</h1>
+    </div>
     <div class="container">
       <div class="row">
         <div class="box">
