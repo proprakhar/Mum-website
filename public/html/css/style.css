@@ -9,7 +9,7 @@ html {
 }
 #gradient-canvas {
   width: 100vw;
-  height: 100vh;
+  height: 120%;
 
   position: absolute;
   top: 0;
@@ -39,6 +39,8 @@ header {
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+
   font-size: 2rem;
   padding: 30px 8%;
   font-weight: 800;
@@ -288,6 +290,8 @@ main {
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+
   color: white;
   padding-top: 60px;
   transition: 0.3s;
@@ -418,6 +422,7 @@ footer {
     rgba(255, 255, 255, 0.1)
   );
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   backdrop-filter: blur(10px);
   cursor: pointer;
   display: flex;
@@ -473,7 +478,7 @@ footer {
     color: rgb(53, 129, 229);
   }
   .home-content {
-    height: 365px;
+    height: 300px;
   }
 }
 .skeleton {
@@ -587,4 +592,14 @@ footer {
 .side-menu i {
   display: inline-block; /* Ensure icons are displayed correctly */
   padding: 8px;
+}
+section {
+  margin: 0;
+  padding: 0;
+}
+iframe {
+  display: block; /* Remove any default margins or paddings */
+  width: 100%; /* Ensure the iframe takes the full width */
+  height: 100%; /* Ensure the iframe takes the full height */
+  border: none; /* Remove the border */
 }
